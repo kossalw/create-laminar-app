@@ -1,0 +1,17 @@
+# IDE
+.vscode/
+.bloop/
+.idea/
+.metals/
+
+# Artefacts
+out/
+node_modules/
+dist/
+docker/
+
+# Mac
+.DS_Store
+
+# Secrets
+.env

@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "cashify": "^3.0.1"
+  },
+  "devDependencies": {
+    "@rollup/plugin-alias": "^5.1.0",
+    "typescript": "^5.4.2",
+    "vite": "^5.1.6"
+  },
+  "scripts": {
+    "dev": "vite dev",
+    "preview": "vite preview",
+    "build": "vite build"
+  },
+  "type": "module"
+}
