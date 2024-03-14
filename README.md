@@ -36,8 +36,9 @@ At the end you should see a Vite.js prompt with a localhost URL where your app i
 
 ## TODO
 
-- [] Better organize build.sc
-- [] Create a TODO app
-- [] Finish the GraphQL example
-- [] Improve README
-- [] Include a docker and kubernetes preset
+- [ ] Better organize build.sc
+- [ ] Create a TODO app
+- [ ] Finish the GraphQL example
+- [ ] Improve README
+- [ ] Add IDE section
+- [ ] Include a docker and kubernetes preset
