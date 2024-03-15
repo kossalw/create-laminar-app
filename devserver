@@ -19,10 +19,10 @@ trap cleanup SIGINT SIGTERM
 npm install
 
 # Start the compilation process
-mill {web,server}.compile
+mill -j 0 {web,server}.compile
 
 # Build the javascript the first time
-mill web.fastLinkJS
+mill -j 0 web.fastLinkJS
 
 # Run the main server in the background and capture its PID
 mill -w server.runMain server.MainServer &
@@ -34,7 +34,7 @@ PID2=$!
 
 # Enable web re-building of js after vite is on
 sleep 2
-mill -w web.fastLinkJS &
+mill -w -j 0 web.fastLinkJS &
 PID3=$!
 
 # Wait for any of the background processes to finish

@@ -9,5 +9,6 @@ pkgs.mkShellNoCC {
     jdk21
     mill
     nodejs_21
+    docker
   ];
 }
