@@ -2,18 +2,13 @@ import mill._
 import mill.scalalib._
 
 import $file.Base
-import Base.{AppScalaModule, AppScalaJSModule}
+import Base.{AppScalaJSModule, AppScalaModule}
 
 import $file.ScalablyTyped
 import ScalablyTyped.`scalablytyped-module`
 
-import $file.Dependencies
-import Dependencies.Deps.jsonScalaJs
-
-object SharedModule extends Module {
-  trait Shared extends AppScalaModule with PlatformScalaModule {
-    def ivyDeps = super.ivyDeps() ++ jsonScalaJs
-  }
+trait SharedModule extends Module {
+  trait Shared extends AppScalaModule with PlatformScalaModule
 
   object jvm extends Shared
   object js extends Shared with AppScalaJSModule {

@@ -11,19 +11,15 @@ import controller.Action.*
 import FromTo.*
 
 object Main {
-  @JSExportTopLevel("main")
-  def main(args: Array[String]): Unit = {
-    render(dom.document.getElementById("root"), app)
-  }
-
-  def ratesSplitter(currentValue: Signal[String]) = children <-- ratesSignal.map(_.toSeq).split(_._1) { case (_, _, rateSignal) => 
-    val currencySignal = rateSignal.map(_._1)
-    option(
-      value <-- currencySignal,
-      selected <-- currentValue.combineWith(currencySignal).map(_ == _),
-      child.text <-- currencySignal
-    )
-  }
+  def ratesSplitter(currentValue: Signal[String]) =
+    children <-- ratesSignal.map(_.toSeq).split(_._1) { case (_, _, rateSignal) =>
+      val currencySignal = rateSignal.map(_._1)
+      option(
+        value <-- currencySignal,
+        selected <-- currentValue.combineWith(currencySignal).map(_ == _),
+        child.text <-- currencySignal
+      )
+    }
 
   val app =
     div(
@@ -69,4 +65,9 @@ object Main {
         child.text <-- convertedAmountSignal.map(_.fold("")(_.toString))
       )
     )
+
+  @JSExportTopLevel("main")
+  def main(): Unit = {
+    renderOnDomContentLoaded(dom.document.getElementById("root"), app)
+  }
 }

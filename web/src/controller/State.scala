@@ -4,7 +4,7 @@ import com.raquo.laminar.api.L.*
 
 import typings.cashify
 import cashify.mod.Cashify
-import cashify.anon.{PartialOptions as CashifyOptions}
+import cashify.anon.PartialOptions as CashifyOptions
 
 import org.scalablytyped.runtime.StringDictionary
 
@@ -41,8 +41,8 @@ object State {
 
     case (currentState, SelectCurrency(currency, To)) => currentState.copy(toCurrency = currency)
 
-    case (currentState, _: ConvertAmount.type) => 
-      val rates = StringDictionary(currentState.rates.toSeq *)
+    case (currentState, _: ConvertAmount.type) =>
+      val rates = StringDictionary(currentState.rates.toSeq*)
       val options = CashifyOptions()
         .setRates(rates)
         .setFrom(currentState.fromCurrency)

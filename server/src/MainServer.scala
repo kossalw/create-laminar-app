@@ -2,19 +2,22 @@ package server
 
 import zio.*
 import http.*
+import logging.consoleLogger
 
-import upickle.default.{Writer, write}
+import server.routes.{GraphQLRoutes, HealthRoutes}
+import server.layers.{GraphQLLayers, GraphQLRequestHandlers}
 
 object MainServer extends ZIOAppDefault {
 
-  private val apiRoutes =
-    Routes(
-      Method.GET / "api" / "health" -> handler(Response.ok)
-    )
+  def app(gqlHandlers: GraphQLRequestHandlers) =
+    (HealthRoutes.routes ++ GraphQLRoutes.routes(gqlHandlers)).toHttpApp @@ Middleware.debug
 
-  def app = apiRoutes.toHttpApp @@ Middleware.debug
+  override val bootstrap =
+    Runtime.removeDefaultLoggers >>> consoleLogger()
 
-  def run =
-    Console.printLine("Started server at http://localhost:8080/") <*
-      Server.serve(app).provide(Server.default)
+  def run = (for {
+    _ <- ZIO.logInfo("Started server at http://localhost:8080/")
+    gqlHandlers <- ZIO.service[GraphQLRequestHandlers]
+    _ <- Server.serve(app(gqlHandlers))
+  } yield ()).provide(Server.default ++ GraphQLLayers.gqlServices).exitCode
 }

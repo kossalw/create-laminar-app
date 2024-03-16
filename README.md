@@ -56,16 +56,16 @@ exit
 
 ## Dependencies
 
-You can use your own jdk, mill and nodejs. Just change the first lines of `devserver`:
+You can use your own jdk, mill and nodejs. Just change the first lines of `devserver`, specifically:
 
 ```bash
-# Change this part:
-
 #!/usr/bin/env nix-shell
 #! nix-shell -i bash --pure
+```
 
-# To this:
+To this:
 
+```bash
 #!/bin/bash
 ```
 
@@ -77,6 +77,12 @@ To leverage the static types it's best to use an IDE that allows for autocomplet
 
 - [VSCode](https://code.visualstudio.com/) using [metals](https://scalameta.org/metals/docs/editors/vscode/)
 - [Intellij Idea](https://www.jetbrains.com/idea/) using the [Scala plugin](https://plugins.jetbrains.com/plugin/1347-scala). For autocompletion you can use [BSP](https://mill-build.com/mill/Installation_IDE_Support.html#_build_server_protocol_bsp) or generate an [idea directory](https://mill-build.com/mill/Installation_IDE_Support.html#_intellij_idea_support).
+
+## Tests
+
+We use [utest](https://github.com/com-lihaoyi/utest) for web tests running with [jsdom](https://github.com/jsdom/jsdom), use `mill -j 0 web.test`
+
+We use [ZIO test](https://zio.dev/reference/test/) for server tests, you can run them with `mill -j 0 server.test server.ServerTests`.
 
 ## Scalablytyped
 
@@ -96,6 +102,5 @@ To change the image, tag, repository or any option of the docker build, go to `b
 
 If you want to contribute consider these tasks:
 
-- [ ] Add web tests
 - [ ] Create GraphQL server with logging and prometheus
-- [ ] Add server tests
+- [ ] Add GraphQL test
